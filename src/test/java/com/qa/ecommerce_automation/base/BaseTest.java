@@ -16,13 +16,21 @@ public class BaseTest {
 
     @BeforeMethod
     public void setup() {
+
+        // Load config.properties
         prop = ConfigReader.initProperties();
-        driver = DriverFactory.getDriver();
+
+        // Initialize browser using DriverFactory
+        driver = DriverFactory.initDriver(prop.getProperty("browser"));
+
+        // Launch application URL
         driver.get(prop.getProperty("baseUrl"));
     }
 
     @AfterMethod
     public void tearDown() {
-        driver.quit();
+
+        // Quit browser safely
+        DriverFactory.quitDriver();
     }
 }
